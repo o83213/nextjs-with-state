@@ -1,7 +1,7 @@
 import { useStore } from "../store2";
 
 export default function Index() {
-  const state = useStore({});
+  const user = useStore((state)=>state.);
   console.log("state", state);
   return (
     <div>
