@@ -52,7 +52,9 @@ export function usePersistedStore<T>(
   const store = persistedStore(selector, compare);
   const [isHydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);
-  return isHydrated ? store : noPersistStore;
+  const returnStore = isHydrated ? store : noPersistStore;
+  console.log("Store SSR", returnStore);
+  return returnStore;
 }
 
 // export const useStore = <T,>({

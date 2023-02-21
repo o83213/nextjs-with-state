@@ -1,7 +1,9 @@
 import { usePersistedStore } from "../store2";
 
 export default function Index() {
-  const { user, setUser } = usePersistedStore((state) => state);
+  const { user, setUser, id } = usePersistedStore((state) => state);
+  console.log("SSR");
+  console.log(user, setUser, id);
   return (
     <div>
       <button
@@ -11,7 +13,7 @@ export default function Index() {
       >
         add User
       </button>
-      {JSON.stringify(user)}
+      <div>{id}</div>
     </div>
   );
 }
