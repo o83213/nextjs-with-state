@@ -26,25 +26,6 @@ export const useBearStore = create<StateTypes>((set) => ({
   },
 }));
 
-// export const usePersistBearStore = create(
-//   persist(
-//     (set: any, get: any) => ({
-//       bears: 0,
-//       addABear: () => set({ bears: get().bears + 1 }),
-//     }),
-//     {
-//       name: "food-storage", // name of the item in the storage (must be unique)
-//       storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
-//       getStorage: () => ({
-//         // Returning a promise from getItem is necessary to avoid issues with hydration
-//         getItem: async (name: string) => localStorage.getItem(name),
-//         setItem: (name: string, value: string) =>
-//           localStorage.setItem(name, value),
-//         removeItem: (name: string) => localStorage.removeItem(name),
-//       }),
-//     }
-//   )
-// );
 export const usePersistBearStore = create((set: any, get: any) => ({
   bears: 0,
   addABear: () => set({ bears: get().bears + 1 }),

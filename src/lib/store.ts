@@ -1,8 +1,18 @@
 import { useLayoutEffect } from "react";
-import create from "zustand";
+import create, { StoreApi, UseBoundStore } from "zustand";
 import createContext from "zustand/context";
 
-let store: any;
+let store: UseBoundStore<
+  StoreApi<{
+    tick: (lastUpdate: any, light: any) => void;
+    increment: () => void;
+    decrement: () => void;
+    reset: () => void;
+    lastUpdate: number;
+    light: boolean;
+    count: number;
+  }>
+>;
 
 const getDefaultInitialState = () => ({
   lastUpdate: Date.now(),
@@ -18,7 +28,7 @@ export const Provider = zustandContext.Provider;
 export const useStore = zustandContext.useStore;
 
 export const initializeStore = (preloadedState = {}) => {
-  return create((set, get: any) => ({
+  return create((set: any, get: any) => ({
     ...getDefaultInitialState(),
     ...preloadedState,
     tick: (lastUpdate: any, light: any) => {
