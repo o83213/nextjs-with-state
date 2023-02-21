@@ -1,18 +1,17 @@
-import { useStore } from "../store2";
+import { usePersistedStore } from "../store2";
 
 export default function Index() {
-  const user = useStore((state)=>state.);
-  console.log("state", state);
+  const { user, setUser } = usePersistedStore((state) => state);
   return (
     <div>
       <button
         onClick={() => {
-          // setUser({ name: "test" });
+          setUser({ name: "test" });
         }}
       >
         add User
       </button>
-      {JSON.stringify(state.user)}
+      {JSON.stringify(user)}
     </div>
   );
 }

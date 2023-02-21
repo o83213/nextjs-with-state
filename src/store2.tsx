@@ -9,20 +9,7 @@ interface emptyState {
   resetUser: () => void;
 }
 
-const createEmptyState = (set: any, get: any) => ({
-  id: 0,
-  user: {
-    isSignedIn: false,
-  },
-  setUser: (userData: any) => {
-    set({ user: { ...userData } });
-  },
-  resetUser: () => {
-    set({ user: {} });
-  },
-});
-
-const usePersistedStore = create<emptyState>()(
+const persistedStore = create<emptyState>()(
   persist(
     (set) => ({
       id: 0,
@@ -40,7 +27,33 @@ const usePersistedStore = create<emptyState>()(
   )
 );
 
-const user = usePersistedStore((state) => state.user);
+const noPersistStore = create<emptyState>()((set, get) => ({
+  id: 0,
+  user: {
+    isSignedIn: false,
+  },
+  setUser: (userData: any) => {
+    set({ user: { ...userData } });
+  },
+  resetUser: () => {
+    set({ user: {} });
+  },
+}));
+
+export function usePersistedStore<T>(
+  selector: (state: emptyState) => T,
+  compare?: (a: T, b: T) => boolean
+): T;
+
+export function usePersistedStore<T>(
+  selector: (state: emptyState) => T,
+  compare?: (a: T, b: T) => boolean
+) {
+  const store = persistedStore(selector, compare);
+  const [isHydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+  return isHydrated ? store : noPersistStore;
+}
 
 // export const useStore = <T,>({
 //   selector,
@@ -54,8 +67,10 @@ const user = usePersistedStore((state) => state.user);
 //   Without this, there is a mismatch between SSR/SSG and client side on first draw which produces
 //   an error.
 //    */
-//   const store = usePersistedStore(selector, compare);
+//   const store = persistedStore(selector, compare);
 //   const [isHydrated, setHydrated] = useState(false);
 //   useEffect(() => setHydrated(true), []);
 //   return isHydrated ? store : createEmptyState;
 // };
+
+// const user = usePersistedStore((state) => state.user);

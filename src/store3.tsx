@@ -23,4 +23,4 @@ function useBearStore<T>(
   return useStore(bearStore, selector!, equals);
 }
 
-const bear = useBearStore((state) => state.bears);
+// const bear = useBearStore((state) => state.bears);

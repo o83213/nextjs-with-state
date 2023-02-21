@@ -50,4 +50,4 @@ export const usePersistBearStore = create((set: any, get: any) => ({
   addABear: () => set({ bears: get().bears + 1 }),
 }));
 
-const store = usePersistBearStore();
+// const store = usePersistBearStore();
