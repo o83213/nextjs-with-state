@@ -6,5 +6,6 @@ export default function Index() {
   console.log("SSR");
   console.log(state);
   console.log(state.user);
+  console.log(state.user);
   return <div>{JSON.stringify(state.user)}</div>;
 }

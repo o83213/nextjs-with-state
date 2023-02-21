@@ -9,15 +9,7 @@ interface StateTypes {
   resetUser: () => void;
 }
 
-const initailizer = (
-  set: (
-    partial:
-      | StateTypes
-      | Partial<StateTypes>
-      | ((state: StateTypes) => StateTypes | Partial<StateTypes>),
-    replace?: boolean | undefined
-  ) => void
-) => ({
+const initailizer = (set: any) => ({
   id: 0,
   user: {
     isSignedIn: false,
@@ -29,6 +21,8 @@ const initailizer = (
     set({ user: {} });
   },
 });
+
+const testingStore = create()(initailizer);
 
 const persistedStore = create<StateTypes>()(
   persist(initailizer, { name: "user-storage" })
